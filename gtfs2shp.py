@@ -6,7 +6,7 @@ from shapely import wkt
 
 pd.set_option('display.max_columns', None)
 path='C:/Users/Y_Ma2/Desktop/GTFS/'
-
+path='G:/ACTIVE_PROJECTS/Boston Road/TRANSPORTATION/MAP/GTFS/'
 
 
 # fromto function
@@ -23,9 +23,9 @@ shapes=pd.read_csv(path+'shapes.txt',dtype=str)
 stoptimes=pd.read_csv(path+'stop_times.txt',dtype=str)
 trips=pd.read_csv(path+'trips.txt',dtype=str)
 routes=pd.read_csv(path+'routes.txt',dtype=str)
-stoptimes=stoptimes[['trip_id','stop_id']].drop_duplicates(keep='first').reset_index()
-trips=trips[['trip_id','route_id','shape_id','trip_headsign','direction_id']].drop_duplicates(keep='first').reset_index()
-routes=routes[['route_id','route_short_name','route_long_name','route_desc']].drop_duplicates(keep='first').reset_index()
+stoptimes=stoptimes[['trip_id','stop_id']].drop_duplicates(keep='first').reset_index(drop=True)
+trips=trips[['trip_id','route_id','shape_id','trip_headsign','direction_id']].drop_duplicates(keep='first').reset_index(drop=True)
+routes=routes[['route_id','route_short_name','route_long_name','route_desc']].drop_duplicates(keep='first').reset_index(drop=True)
 
 
 
@@ -38,6 +38,7 @@ stops2=stops2.sort_values(['stop_id','trip_id'],ascending=[True,False]).reset_in
 stops2=stops2.groupby(['stop_id','stop_name','stop_lat','stop_lon'])['route_short_name'].apply('/'.join).reset_index(drop=False)
 stops2=gpd.GeoDataFrame(stops2,geometry=gpd.points_from_xy(pd.to_numeric(stops2['stop_lon']),pd.to_numeric(stops2['stop_lat'])),crs={'init' :'epsg:4326'})
 stops2=stops2[['stop_id','stop_name','route_short_name','geometry']]
+stops2.columns=['stopid','stopname','routes','geometry']
 stops2.to_file(path+'stops.shp')
 
 
@@ -56,6 +57,7 @@ shapes2=gpd.GeoDataFrame(shapes2,geometry=shapes2['geom'],crs={'init' :'epsg:432
 shapes2=shapes2.drop('geom',axis=1)
 shapes2=shapes2.dissolve(by=['route_short_name','direction_id','trip_headsign']).reset_index()
 shapes2=shapes2[['route_short_name','route_long_name','route_desc','direction_id','trip_headsign','geometry']]
+shapes2.columns=['routename','longname','desc','direction','headsign','geometry']
 shapes2.to_file(path+'routes.shp')
 
 
