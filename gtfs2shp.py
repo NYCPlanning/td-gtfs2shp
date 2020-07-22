@@ -9,7 +9,7 @@ pd.set_option('display.max_columns', None)
 #path='C:/Users/Y_Ma2/Desktop/GTFS/'
 #path='G:/ACTIVE_PROJECTS/Boston Road/TRANSPORTATION/MAP/GTFS/'
 #path='I:/GREENPOINT/Ferry Usage Analysis/gtfs/'
-path='C:/Users/Yijun Ma/Desktop/google_transit_staten_island/'
+path='C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_staten_island/'
 
 
 # fromto function
@@ -72,3 +72,18 @@ shapes2.columns=['routename','longname','desc','direction','headsign','geometry'
 shapes2.to_file(path+'routes.shp')
 
 
+
+
+
+bx=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_bronx/routes.shp')
+bx.crs={'init' :'epsg:4326'}
+bk=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_brooklyn/routes.shp')
+bk.crs={'init' :'epsg:4326'}
+mn=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_manhattan/routes.shp')
+mn.crs={'init' :'epsg:4326'}
+qn=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_queens/routes.shp')
+qn.crs={'init' :'epsg:4326'}
+si=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_staten_island/routes.shp')
+si.crs={'init' :'epsg:4326'}
+busroutes=pd.concat([bx,bk,mn,qn,si],axis=0,ignore_index=True)
+busroutes.to_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/routes.shp')
