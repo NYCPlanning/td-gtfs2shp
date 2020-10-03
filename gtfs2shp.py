@@ -9,7 +9,8 @@ pd.set_option('display.max_columns', None)
 #path='C:/Users/Y_Ma2/Desktop/GTFS/'
 #path='G:/ACTIVE_PROJECTS/Boston Road/TRANSPORTATION/MAP/GTFS/'
 #path='I:/GREENPOINT/Ferry Usage Analysis/gtfs/'
-path='C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit/'
+# path='C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit/'
+path='C:/Users/mayij/Desktop/google_transit/'
 
 
 # fromto function
@@ -43,8 +44,8 @@ stops2=pd.merge(stops2,routes,how='left',on='route_id')
 stops2=stops2.groupby(['stop_id','stop_name','stop_lat','stop_lon','route_short_name'],as_index=False).agg({'trip_id':'count'})
 stops2=stops2.sort_values(['stop_id','trip_id'],ascending=[True,False]).reset_index(drop=True)
 stops2=stops2.groupby(['stop_id','stop_name','stop_lat','stop_lon'])['route_short_name'].apply('/'.join).reset_index(drop=False)
-#stops2=gpd.GeoDataFrame(stops2,geometry=gpd.points_from_xy(pd.to_numeric(stops2['stop_lon']),pd.to_numeric(stops2['stop_lat'])),crs={'init' :'epsg:4326'})
-stops2=gpd.GeoDataFrame(stops2,geometry=[shapely.geometry.Point(x,y) for x,y in zip(pd.to_numeric(stops2['stop_lon']),pd.to_numeric(stops2['stop_lat']))],crs={'init' :'epsg:4326'})
+#stops2=gpd.GeoDataFrame(stops2,geometry=gpd.points_from_xy(pd.to_numeric(stops2['stop_lon']),pd.to_numeric(stops2['stop_lat'])),crs='epsg:4326')
+stops2=gpd.GeoDataFrame(stops2,geometry=[shapely.geometry.Point(x,y) for x,y in zip(pd.to_numeric(stops2['stop_lon']),pd.to_numeric(stops2['stop_lat']))],crs='epsg:4326')
 stops2=stops2[['stop_id','stop_name','route_short_name','geometry']]
 stops2.columns=['stopid','stopname','routes','geometry']
 stops2.to_file(path+'stops.shp')
@@ -70,6 +71,7 @@ shapes2=shapes2[['route_short_name','route_long_name','route_desc','direction_id
 shapes2.columns=['routename','longname','desc','direction','headsign','geometry']
 #shapes2.columns=['routename','longname','direction','headsign','geometry']
 shapes2.to_file(path+'routes.shp')
+# shapes2.to_file(path+'routes.geojson',driver='GeoJSON')
 
 
 
