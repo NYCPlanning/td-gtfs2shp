@@ -63,7 +63,7 @@ shapes2=shapes2.groupby('shape_id').apply(fromto).reset_index(drop=True)
 shapes2=shapes2[['route_short_name','route_long_name','route_desc','trip_headsign','direction_id','geom']]
 #shapes2=shapes2[['route_short_name','route_long_name','trip_headsign','direction_id','geom']]
 shapes2=shapes2.sort_values(['route_short_name','direction_id','trip_headsign']).drop_duplicates(keep='first').reset_index(drop=True)
-shapes2=gpd.GeoDataFrame(shapes2,geometry=shapes2['geom'].map(wkt.loads),crs={'init' :'epsg:4326'})
+shapes2=gpd.GeoDataFrame(shapes2,geometry=shapes2['geom'].map(wkt.loads),crs='epsg:4326')
 shapes2=shapes2.drop('geom',axis=1)
 shapes2=shapes2.dissolve(by=['route_short_name','direction_id','trip_headsign']).reset_index()
 shapes2=shapes2[['route_short_name','route_long_name','route_desc','direction_id','trip_headsign','geometry']]
