@@ -10,7 +10,7 @@ pd.set_option('display.max_columns', None)
 #path='G:/ACTIVE_PROJECTS/Boston Road/TRANSPORTATION/MAP/GTFS/'
 #path='I:/GREENPOINT/Ferry Usage Analysis/gtfs/'
 # path='C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit/'
-path='C:/Users/mayij/Desktop/google_transit/'
+path='C:/Users/mayij/Desktop/google_transit_queens/'
 
 
 # fromto function
@@ -76,18 +76,33 @@ shapes2.to_file(path+'routes.shp')
 
 
 
-
-bx=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_bronx/routes.shp')
+bx=gpd.read_file('C:/Users/mayij/Desktop/google_transit_bronx/stops.shp')
 bx.crs={'init' :'epsg:4326'}
-bk=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_brooklyn/routes.shp')
+bk=gpd.read_file('C:/Users/mayij/Desktop/google_transit_brooklyn/stops.shp')
 bk.crs={'init' :'epsg:4326'}
-mn=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_manhattan/routes.shp')
+mn=gpd.read_file('C:/Users/mayij/Desktop/google_transit_manhattan/stops.shp')
 mn.crs={'init' :'epsg:4326'}
-qn=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_queens/routes.shp')
+qn=gpd.read_file('C:/Users/mayij/Desktop/google_transit_queens/stops.shp')
 qn.crs={'init' :'epsg:4326'}
-si=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit_staten_island/routes.shp')
+si=gpd.read_file('C:/Users/mayij/Desktop/google_transit_staten_island/stops.shp')
 si.crs={'init' :'epsg:4326'}
-bs=gpd.read_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/google_transit/routes.shp')
+bs=gpd.read_file('C:/Users/mayij/Desktop/google_transit/stops.shp')
+bs.crs={'init' :'epsg:4326'}
+busstops=pd.concat([bx,bk,mn,qn,si,bs],axis=0,ignore_index=True)
+busstops.to_file('C:/Users/mayij/Desktop/busstop20210330.shp')
+
+
+bx=gpd.read_file('C:/Users/mayij/Desktop/google_transit_bronx/routes.shp')
+bx.crs={'init' :'epsg:4326'}
+bk=gpd.read_file('C:/Users/mayij/Desktop/google_transit_brooklyn/routes.shp')
+bk.crs={'init' :'epsg:4326'}
+mn=gpd.read_file('C:/Users/mayij/Desktop/google_transit_manhattan/routes.shp')
+mn.crs={'init' :'epsg:4326'}
+qn=gpd.read_file('C:/Users/mayij/Desktop/google_transit_queens/routes.shp')
+qn.crs={'init' :'epsg:4326'}
+si=gpd.read_file('C:/Users/mayij/Desktop/google_transit_staten_island/routes.shp')
+si.crs={'init' :'epsg:4326'}
+bs=gpd.read_file('C:/Users/mayij/Desktop/google_transit/routes.shp')
 bs.crs={'init' :'epsg:4326'}
 busroutes=pd.concat([bx,bk,mn,qn,si,bs],axis=0,ignore_index=True)
-busroutes.to_file('C:/Users/mayij/Desktop/DOC/DCP2020/COVID19/STREET CLOSURE/school/bus.shp')
+busroutes.to_file('C:/Users/mayij/Desktop/busroute20210330.shp')
