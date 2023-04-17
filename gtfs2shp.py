@@ -13,6 +13,7 @@ pd.set_option('display.max_columns', None)
 # path='C:/Users/mayij/Desktop/google_transit_queens/'
 path='C:/Users/mayij/Desktop/DOC/DCP2021/EDDT/gtfs/'
 path='C:/Users/Y_Ma2/Desktop/GITHUB/SKILLGH/GTFS/'
+path='C:/Users/mayij/Desktop/'
 
 
 
